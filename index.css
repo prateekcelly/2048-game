@@ -1,0 +1,232 @@
+:root {
+  --grid-size: 4;
+  --grid-background: #bbada0;
+  --tile-2048: rgba(0, 0, 0, 1);
+  --tile-1024: rgba(10, 20, 30, 1);
+  --tile-512: rgba(55, 6, 23, 1);
+  --tile-256: rgba(106, 4, 15, 1);
+  --tile-128: rgba(157, 2, 8, 1);
+  --tile-64: rgba(208, 0, 0, 1);
+  --tile-32: rgba(220, 47, 2, 1);
+  --tile-16: rgba(232, 93, 4, 1);
+  --tile-8: rgba(244, 140, 6, 1);
+  --tile-4: rgba(250, 163, 7, 1);
+  --tile-2: rgba(255, 186, 8, 1);
+  --tile-0: #cdc1b5;
+  --text-1: #646464;
+  --text-2: #ffffff;
+}
+
+.animate__animated.animate__zoomIn {
+  --animate-duration: 0.2s;
+}
+
+.animate__animated.animate__bounceIn {
+  --animate-duration: 0.7s;
+}
+
+.animate__animated.animate__backInDown {
+  --animate-duration: 1s;
+}
+
+.animate__animated.animate__jackInTheBox {
+  --animate-duration: 1s;
+}
+
+html,
+body {
+  background: linear-gradient(267deg, #00d7d9, #0077d9, #0f00d9, #8b00d9);
+  background-size: 800% 800%;
+
+  -webkit-animation: BackgroundGradient 20s ease infinite;
+  -moz-animation: BackgroundGradient 20s ease infinite;
+  animation: BackgroundGradient 20s ease infinite;
+
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@-webkit-keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 51%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
+}
+@-moz-keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 51%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
+}
+@keyframes BackgroundGradient {
+  0% {
+    background-position: 0% 51%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 51%;
+  }
+}
+
+@font-face {
+  font-family: "play-regular";
+  src: url("./assets/fonts/Play-Regular.ttf");
+}
+
+@font-face {
+  font-family: "play-bold";
+  src: url("./assets/fonts/Play-Bold.ttf");
+}
+
+.game {
+  height: 600px;
+  width: 800px;
+  margin: 0 auto;
+}
+
+.grid {
+  float: left;
+  border: 10px solid var(--grid-background);
+  border-radius: 10px;
+  height: calc(var(--grid-size) * 100px);
+  width: calc(var(--grid-size) * 100px);
+  background-color: var(--grid-background);
+  margin: 5em 0;
+  display: grid;
+  grid-template-rows: repeat(var(--grid-size), 1fr);
+  grid-template-columns: repeat(var(--grid-size), 1fr);
+  gap: 10px;
+  -webkit-box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.75);
+}
+
+.tile {
+  padding: 10px;
+  background-color: var(--tile-0);
+  border-radius: 5px;
+  text-align: center;
+  height: calc(var(--grid-size) * 25px - 30px);
+  line-height: 80px;
+  font-family: play-bold;
+  font-size: 2em;
+  font-weight: bolder;
+  color: #646464;
+  user-select: none;
+}
+
+.panel {
+  float: left;
+  height: inherit;
+  margin-left: 5rem;
+}
+
+.score {
+  padding: 0 1em;
+  margin-top: 10em;
+  width: 10em;
+  height: 3em;
+  line-height: 3em;
+  word-wrap: break-word;
+  background-color: var(--tile-0);
+  border-radius: 10px;
+  font-family: play-bold;
+  font-size: 1.1em;
+  -webkit-box-shadow: 4px 4px 3px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 3px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 3px 1px rgba(0, 0, 0, 0.75);
+}
+
+.newgame {
+  margin-top: 5em;
+  margin-left: 3em;
+  margin-right: 3em;
+  width: 10em;
+  float: left;
+  background-color: var(--tile-0);
+  border-radius: 10px;
+  font-family: play-bold;
+  -webkit-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+  outline: none;
+}
+
+.newgame:hover {
+  background-color: var(--grid-background);
+}
+
+.animate-button {
+  -webkit-animation: ButtonClick 0.2s ease 1;
+  -moz-animation: ButtonClick 0.2s ease 1;
+  animation: ButtonClick 0.2s ease 1;
+}
+
+@-webkit-keyframes ButtonClick {
+  50% {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    transform: translateX(2px) translateY(2px);
+  }
+  100% {
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+  }
+}
+@-moz-keyframes ButtonClick {
+  50% {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    transform: translateX(2px) translateY(2px);
+  }
+  100% {
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+  }
+}
+@keyframes ButtonClick {
+  50% {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    transform: translateX(2px) translateY(2px);
+  }
+  100% {
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 3px 1px rgba(0, 0, 0, 0.75);
+  }
+}
+
+.instructions {
+  margin: 0 auto;
+  height: auto;
+  width: 800px;
+  font-family: play-bold;
+  font-size: 1.5em;
+  color: #000000;
+}
+
+.instructions > * {
+  text-align: center;
+}

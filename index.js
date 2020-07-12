@@ -155,7 +155,7 @@ function moveUp() {
       if (grid[i][j].innerText !== "") {
         let mark = [i, j];
         for (let k = i - 1; k >= 0; k--) {
-          if (!isMerged[i][j]) {
+          if (!isMerged[k][j]) {
             if (grid[k][j].innerText === "") {
               mark = [k, j];
             } else {
@@ -196,7 +196,7 @@ function moveDown() {
       if (grid[i][j].innerText !== "") {
         let mark = [i, j];
         for (let k = i + 1; k < GRID_SIZE; k++) {
-          if (!isMerged[i][j]) {
+          if (!isMerged[k][j]) {
             if (grid[k][j].innerText === "") {
               mark = [k, j];
             } else {
@@ -237,7 +237,7 @@ function moveLeft() {
       if (grid[i][j].innerText !== "") {
         let mark = [i, j];
         for (let k = j - 1; k >= 0; k--) {
-          if (!isMerged[i][j]) {
+          if (!isMerged[i][k]) {
             if (grid[i][k].innerText === "") {
               mark = [i, k];
             } else {
@@ -278,7 +278,7 @@ function moveRight() {
       if (grid[i][j].innerText !== "") {
         let mark = [i, j];
         for (let k = j + 1; k < GRID_SIZE; k++) {
-          if (!isMerged[i][j]) {
+          if (!isMerged[i][k]) {
             if (grid[i][k].innerText === "") {
               mark = [i, k];
             } else {

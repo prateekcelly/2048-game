@@ -1,6 +1,6 @@
 # 2048-game
 
-Classic 2048 game developed using HTML, CSS3 and Vanilla Javascript.
+Classic 2048 game developed using HTML, CSS3 and Vanilla Javascript. Used Animate.css for animations.
 
 ## License
 

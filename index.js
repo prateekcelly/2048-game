@@ -344,11 +344,11 @@ function newGame() {
       populateTileAttributes(0, i, j);
     }
   }
+  score = 0;
+  filledTiles = 0;
   clearMerge();
   populateCell();
   populateCell();
-  score = 0;
-  filledTiles = 0;
   document.querySelector(".score").innerText = `SCORE: ${score}`;
 }
 

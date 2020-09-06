@@ -93,6 +93,14 @@ body {
   src: url("./assets/fonts/Play-Bold.ttf");
 }
 
+.notsupported {
+  display: none;
+  color: white;
+  text-align: center;
+  font-size: large;
+  margin: 10rem 0;
+}
+
 .game {
   height: 600px;
   width: 800px;
@@ -114,6 +122,51 @@ body {
   -webkit-box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.75);
   box-shadow: 3px 3px 3px 1px rgba(0, 0, 0, 0.75);
+}
+
+.gameover {
+  position: absolute;
+  float: left;
+  border-radius: 10px;
+  height: calc(var(--grid-size) * 100px + 20px);
+  width: calc(var(--grid-size) * 100px + 20px);
+  background-color: var(--grid-background);
+  margin: 5em 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: play-bold;
+  font-size: 2em;
+  margin: 2.5em 0;
+  visibility: hidden;
+  -webkit-animation: GameOver-Fade 5s ease-in-out forwards;
+  -moz-animation: GameOver-Fade 5s ease-in-out forwards;
+  animation: GameOver-Fade 5s ease-in-out forwards;
+}
+
+@-webkit-keyframes GameOver-Fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+@-moz-keyframes GameOver-Fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+@keyframes GameOver-Fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
 
 .tile {

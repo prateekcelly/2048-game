@@ -3,6 +3,9 @@ var grid = [];
 var isMerged = [...Array(GRID_SIZE)].map(() => Array(GRID_SIZE));
 var score = 0;
 var filledTiles = 0;
+var undoState = [];
+var undoScore = [0];
+var undoFilledTiles = [0];
 
 document.addEventListener("DOMContentLoaded", initializeGame);
 window.addEventListener("resize", checkClientDevice);
@@ -15,11 +18,14 @@ async function initializeGame() {
   if (!check) {
     makeGrid(GRID_SIZE, GRID_SIZE);
     document.addEventListener("keyup", handleKeyPress);
-    document.querySelector(".newgame").addEventListener("click", newGame);
+    document.querySelector("#newgame").addEventListener("click", newGame);
+    document.querySelector("#undo").addEventListener("click", undoEvent);
     animateCSS(document.querySelector(".instructions"), "jackInTheBox");
     await animateCSS(document.querySelector(".game"), "backInDown");
     populateCell();
     populateCell();
+    updateUndoState();
+    animateButtons();
   }
 }
 
@@ -361,7 +367,10 @@ function handleKeyPress(e) {
     default:
       break;
   }
-  if (stateChanged) populateCell();
+  if (stateChanged) {
+    populateCell();
+    updateUndoState();
+  }
   if (filledTiles === GRID_SIZE * GRID_SIZE) {
     if (
       !moveDown(true) &&
@@ -388,24 +397,77 @@ function newGame() {
   }
   score = 0;
   filledTiles = 0;
+  undoState = [];
+  undoScore = [0];
   clearMerge();
   populateCell();
   populateCell();
+  updateUndoState();
   document.querySelector(".score").innerText = `SCORE: ${score}`;
 }
 
+function updateUndoState() {
+  let state = [];
+  for (let i = 0; i < GRID_SIZE; i++) {
+    let row = [];
+    for (let j = 0; j < GRID_SIZE; j++) {
+      if (grid[i][j].innerText === "") row.push(0);
+      else row.push(parseInt(grid[i][j].innerText, 10));
+    }
+    state.push(row);
+  }
+  undoState.push(state);
+  if (undoState.length > 6) undoState.shift();
+  undoScore.push(score);
+  if (undoScore.length > 6) undoScore.shift();
+  undoFilledTiles.push(filledTiles);
+  if (undoFilledTiles.length > 6) undoFilledTiles.shift();
+}
+
+function undoEvent() {
+  if (undoState.length > 1) {
+    undoFilledTiles.pop();
+    filledTiles = undoFilledTiles.pop();
+    undoScore.pop();
+    score = undoScore.pop();
+    undoState.pop();
+    const lastState = undoState.pop();
+    for (let i = 0; i < GRID_SIZE; i++) {
+      for (let j = 0; j < GRID_SIZE; j++) {
+        populateTileAttributes(lastState[i][j], i, j);
+      }
+    }
+    document
+      .querySelector(".gameover")
+      .style.setProperty("visibility", "hidden");
+    document.querySelector(".score").innerText = `SCORE: ${score}`;
+    updateUndoState();
+  }
+}
+
 /*
-    Handle Animation for the New Game Button
+    Handle Animation for the Buttons
 */
-const newGameButton = document.querySelector(".newgame");
-newGameButton.addEventListener("click", function (e) {
-  this.classList.remove("animate-button");
-  this.offsetWidth; // DOM Reflow for breaking the Animation
-  this.classList.add("animate-button");
-});
-newGameButton.addEventListener("animationend", function (e) {
-  this.classList.remove("animate-button");
-});
+function animateButtons() {
+  const newGame = document.querySelector("#newgame");
+  const undo = document.querySelector("#undo");
+  addButtonAnimation(newGame);
+  addButtonAnimation(undo);
+}
+
+/*
+    Helper Function for Animating Buttons
+*/
+function addButtonAnimation(button) {
+  button.addEventListener("click", function (e) {
+    this.classList.remove("animate-button");
+    this.offsetWidth; // DOM Reflow for breaking the Animation
+    this.classList.add("animate-button");
+  });
+  button.addEventListener("animationend", function (e) {
+    this.classList.remove("animate-button");
+  });
+}
 
 /*
     Detect Mobile Devices
